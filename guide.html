@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <title>Vidi Addons Guide</title>
+    <link rel="icon" href="addonicons/vidi.png" />
+    <style>
+      body {
+        font-family: "Baloo", sans-serif;
+      }
+      .bg-primary {
+        background-color: #000;
+      }
+      .card {
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .step-card {
+        animation: fadeInUp 0.6s ease;
+      }
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .text-custom {
+        color: white;
+      }
+      .bg-hover-custom:hover {
+        background-color: #333;
+      }
+      .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 1000;
+        transition: right 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .mobile-menu.active {
+        right: 0;
+      }
+      .mobile-menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem;
+        margin: 1rem 0;
+        padding: 0.5rem 2rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        width: 80%;
+        text-align: center;
+      }
+      .mobile-menu a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+      .menu-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+      }
+      .menu-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      @keyframes menuItemFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .mobile-menu a {
+        animation: menuItemFadeIn 0.5s ease forwards;
+        opacity: 0;
+      }
+      .mobile-menu a:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .mobile-menu a:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .mobile-menu a:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .menu-icon {
+        transition: transform 0.3s ease;
+      }
+      .menu-icon.active {
+        transform: rotate(90deg);
+      }
+      .menu-icon i {
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
+      .menu-close i {
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
+      .menu-close:hover i {
+        transform: rotate(90deg);
+      }
+      /* Wizard Progress Bar */
+      .wizard-progress {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem auto;
+        max-width: 600px;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .wizard-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 120px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .wizard-step.active {
+        background: #4f46e5;
+        transform: translateY(-2px);
+      }
+
+      .wizard-label {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .step-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin: 1rem auto;
+        max-width: 600px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .step-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .step-content {
+        display: none;
+        animation: fadeIn 0.3s ease-in-out;
+      }
+
+      .step-content.active {
+        display: block;
+      }
+
+      .install-button {
+        display: inline-block;
+        background: #4f46e5;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin: 1rem 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .install-button:hover {
+        background: #4338ca;
+        transform: translateY(-2px);
+      }
+
+      .input-container {
+        margin: 1rem 0;
+      }
+
+      .api-input {
+        width: 100%;
+        max-width: 300px;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        margin-bottom: 1rem;
+      }
+
+      .api-input:focus {
+        outline: none;
+        border-color: #4f46e5;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      @media (max-width: 640px) {
+        .wizard-progress {
+          padding: 0 1rem;
+        }
+
+        .wizard-step {
+          min-width: 100px;
+          padding: 0.75rem;
+        }
+
+        .step-card {
+          margin: 1rem;
+          padding: 1.25rem;
+        }
+
+        .wizard-label {
+          font-size: 0.8rem;
+        }
+      }
+      /* FAQ Accordion */
+      .faq-section {
+        margin-bottom: 2rem;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .faq-item {
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+      
+      .faq-question {
+        width: 100%;
+        text-align: left;
+        padding: 1.25rem;
+        background-color: #1a1a1a;
+        border: 1px solid #333;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 500;
+      }
+      
+      .faq-question:hover {
+        background-color: #2a2a2a;
+        transform: translateX(4px);
+      }
+      
+      .faq-answer {
+        background-color: #111;
+        border: 1px solid #333;
+        border-top: none;
+        border-radius: 0 0 0.5rem 0.5rem;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 0 1.25rem;
+      }
+      
+      .faq-answer.active {
+        max-height: 500px;
+        opacity: 1;
+        padding: 1.25rem;
+      }
+      
+      .faq-question i {
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 1.2rem;
+        color: #666;
+      }
+      
+      .faq-question.active i {
+        transform: rotate(180deg);
+        color: #fff;
+      }
+      
+      .faq-question .question-text {
+        flex: 1;
+        padding-right: 1rem;
+        line-height: 1.4;
+      }
+
+      /* Section headers */
+      .faq-section h3 {
+        color: #fff;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #333;
+      }
+      /* Tabs */
+      .tab-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid #333;
+        padding-bottom: 1rem;
+      }
+      .tab-button {
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .tab-button.active {
+        background: #4f46e5;
+      }
+      .tab-button:hover:not(.active) {
+        background: rgba(79, 70, 229, 0.1);
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .setup-step {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .setup-step:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-2px);
+      }
+
+      .step-number {
+        background: #4f46e5;
+        color: white;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+
+      .setup-step h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+        color: white;
+      }
+
+      .setup-step p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .setup-step ul {
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .setup-step li {
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+      }
+
+      .setup-note {
+        background: rgba(79, 70, 229, 0.1);
+        border-left: 4px solid #4f46e5;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 0.5rem;
+      }
+
+      @media (max-width: 640px) {
+        .setup-step {
+          padding: 1.25rem;
+        }
+
+        .setup-step h3 {
+          font-size: 1.1rem;
+        }
+
+        .setup-step p,
+        .setup-step li {
+          font-size: 0.95rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .tab-content {
+          height: calc(100vh - 180px);
+          overflow-y: auto;
+          padding: 1rem;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .step-card {
+          margin-bottom: 1.5rem;
+          padding: 1.25rem;
+        }
+
+        .tab-buttons {
+          position: sticky;
+          top: 0;
+          background: #1a1a1a;
+          z-index: 10;
+          padding: 0.5rem;
+          display: flex;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+
+        .tab-buttons::-webkit-scrollbar {
+          display: none;
+        }
+
+        .tab-button {
+          flex: 0 0 auto;
+          white-space: nowrap;
+        }
+      }
+      /* FAQ Styles */
+      
+      /* Tab Content Styles */
+      .tab-content {
+        display: none;
+      }
+      
+      .tab-content.active {
+        display: block;
+      }
+      
+      .loader {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: black;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      .loader.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader-content {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        margin-bottom: 2rem;
+      }
+
+      .loader-circle {
+        width: 100%;
+        height: 100%;
+        border: 4px solid #3b82f6;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .loader-inner-circle {
+        width: 70%;
+        height: 70%;
+        border: 4px solid #8b5cf6;
+        border-radius: 50%;
+        border-bottom-color: transparent;
+        animation: spin 1.5s linear infinite reverse;
+        position: absolute;
+        top: 15%;
+        left: 15%;
+      }
+
+      .loader-message {
+        text-align: center;
+        color: white;
+        font-size: 1.5rem;
+        margin-top: 1rem;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease-out forwards 0.5s;
+      }
+
+      .loader-credit {
+        position: absolute;
+        bottom: 2rem;
+        color: #6b7280;
+        font-size: 0.875rem;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease-out forwards 1s;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Scroll to Top Button */
+      .scroll-to-top {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .scroll-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+    </style>
+
+       <!-- SEO Meta Tags -->
+       <meta name="description" content="Official Vidi Addons Guide - Configure high-quality addons with Real-Debrid and AllDebrid integration for Vidi media player. Simple setup for premium streaming sources.">
+       <meta name="keywords" content="Vidi, Vidi Addons, Vidi Configuration, Real-Debrid, AllDebrid, Torrentio, Comet">
+       
+       <!-- Open Graph Meta Tags -->
+       <meta property="og:title" content="Vidi Addons - Enhanced Media Player">
+       <meta property="og:description" content="Configure and install enhanced addons with Vidi. Easy setup for Torrentio with debrid integration.">
+       <meta property="og:type" content="website">
+       <meta property="og:site_name" content="Vidi Addons">
+       
+       <!-- Structured Data -->
+       <script type="application/ld+json">
+       {
+           "@context": "https://schema.org",
+           "@type": "SoftwareApplication",
+           "name": "Vidi",
+           "applicationCategory": "MediaPlayer",
+           "operatingSystem": "Windows",
+           "description": "Powerful media player with debrid service integration for high-quality streaming"
+       }
+       </script>
+  </head>
+  <body class="bg-black text-white font-['Baloo']">
+    <!-- Loading Animation -->
+    <div class="loader">
+      <div class="loader-content">
+        <div class="loader-circle"></div>
+        <div class="loader-inner-circle"></div>
+      </div>
+      <div class="loader-message">Welcome to Vidi Guide!</div>
+      <div class="loader-credit">Made with ❤️ by nhyira</div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button onclick="scrollToTop()" class="scroll-to-top fixed bottom-4 right-4 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transform hover:scale-110 transition-all duration-300 z-50">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    <div class="container mx-auto p-4 md:p-5">
+      <!-- Navbar / Hamburger Menu -->
+      <div class="flex justify-between items-center mb-8 sticky top-0 z-50 bg-black bg-opacity-95 backdrop-blur-sm p-4 shadow-lg">
+        <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Vidi Addons Guide</h1>
+        <div class="sm:hidden">
+          <button
+            onclick="toggleMenu()"
+            class="text-white focus:outline-none p-3 hover:bg-gray-800 active:bg-gray-700 rounded-lg transition-all duration-300 transform hover:scale-105"
+          >
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+        <div class="hidden sm:flex space-x-6">
+          <a href="index.html" class="text-lg text-white hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2"><i class="fas fa-home mr-2"></i>Addons</a>
+          <a href="guide.html" class="text-lg text-white hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2"><i class="fas fa-book mr-2"></i>Guide</a>
+          <a href="credits.html" class="text-lg text-white hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2"><i class="fas fa-award mr-2"></i>Credits</a>
+          <a
+            href="https://discord.gg/mvFSFmTfBz"
+            target="_blank"
+            class="text-lg text-white hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2"
+            ><i class="fab fa-discord mr-2"></i>Discord</a>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="fixed inset-0 bg-black bg-opacity-95 transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col items-center justify-center">
+        <button onclick="toggleMenu()" class="absolute top-6 right-6 text-gray-400 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-all duration-300">
+          <i class="fas fa-times text-2xl"></i>
+        </button>
+        <div class="flex flex-col items-center space-y-6 w-full px-4">
+          <a href="index.html" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 py-4 rounded-xl flex items-center justify-center text-xl">
+            <i class="fas fa-home mr-3"></i>Addons
+          </a>
+          <a href="guide.html" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 py-4 rounded-xl flex items-center justify-center text-xl">
+            <i class="fas fa-book mr-3"></i>Guide
+          </a>
+          <a href="credits.html" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 py-4 rounded-xl flex items-center justify-center text-xl">
+            <i class="fas fa-award mr-3"></i>Credits
+          </a>
+          <a href="https://discord.gg/mvFSFmTfBz" target="_blank" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 py-4 rounded-xl flex items-center justify-center text-xl">
+            <i class="fab fa-discord mr-3"></i>Discord
+          </a>
+        </div>
+      </div>
+
+      <!-- Tabs Navigation -->
+      <div class="tab-buttons mb-8">
+        <button class="tab-button active" onclick="switchTab('setup')">
+          Quick Setup
+        </button>
+        <button class="tab-button" onclick="switchTab('advanced')">
+          Advanced Addons
+        </button>
+        <button class="tab-button" onclick="switchTab('faq')">FAQ</button>
+      </div>
+
+      <!-- Setup Guide Tab -->
+      <div id="setup" class="tab-content active">
+        <div class="wizard-progress mb-8">
+          <div class="wizard-step active" data-step="1" onclick="goToStep(1)">
+            1
+            <span class="wizard-label">Install Cinemata</span>
+          </div>
+          <div class="wizard-step" data-step="2" onclick="goToStep(2)">
+            2
+            <span class="wizard-label">Setup Torrentio</span>
+          </div>
+          <div class="wizard-step" data-step="3" onclick="goToStep(3)">
+            3
+            <span class="wizard-label">Ready!</span>
+          </div>
+        </div>
+
+        <!-- Step 1: Install Cinemata Addon -->
+        <div id="step1" class="step-content active">
+          <div class="step-card">
+            <h2 class="text-xl font-bold mb-4">
+              Step 1: Install Cinemata Addon
+            </h2>
+            <p class="mb-4">
+              Click the button below to install the Cinemata addon into Vidi:
+            </p>
+            <div class="text-center">
+              <a
+                href="vidi://v3-cinemeta.strem.io/manifest.json"
+                onclick="markStepComplete(1)"
+                class="install-button"
+              >
+                Install Cinemata
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Install Torrentio Addon -->
+        <div id="step2" class="step-content">
+          <div class="step-card">
+            <h2 class="text-xl font-bold mb-4">
+              Step 2: Install Torrentio Addon
+            </h2>
+
+            <!-- Real-Debrid Section -->
+            <p class="mb-4">
+              Enter your Real Debrid API Token to install Torrentio:
+            </p>
+            <div class="text-center">
+              <div class="input-container">
+                <input
+                  type="text"
+                  id="apiToken"
+                  placeholder="Enter your Real-Debrid API Token"
+                  class="api-input"
+                  aria-label="Real-Debrid API Token"
+                />
+                <p class="text-sm text-gray-400 mt-1">
+                  Get your API token here: <a href="https://real-debrid.com/apitoken" target="_blank" class="text-blue-400 hover:text-blue-300">(Make sure you're logged in)</a>
+                </p>
+              </div>
+              <button onclick="installTorrentio()" class="install-button">
+                Install Torrentio with Real-Debrid
+              </button>
+            </div>
+
+            <!-- AllDebrid Section -->
+            <p class="mb-4 mt-8">Or enter your AllDebrid API Token:</p>
+            <div class="text-center">
+              <div class="input-container">
+                <input
+                  type="text"
+                  id="allDebridToken"
+                  placeholder="Enter your AllDebrid API Token"
+                  class="api-input"
+                  aria-label="AllDebrid API Token"
+                />
+                <p class="text-sm text-gray-400 mt-1">
+                  Get your API token here: <a href="https://alldebrid.com/apikeys" target="_blank" class="text-blue-400 hover:text-blue-300">(Make sure you're logged in)</a>
+                </p>
+              </div>
+              <button
+                onclick="installTorrentioAllDebrid()"
+                class="install-button"
+              >
+                Install Torrentio with AllDebrid
+              </button>
+            </div>
+
+            <p class="mt-4 text-sm opacity-75 text-center">
+              You need to enter your API token to complete the Torrentio setup
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3: Enjoy! -->
+        <div id="step3" class="step-content">
+          <div class="step-card">
+            <h2 class="text-xl font-bold mb-4">Step 3: Enjoy!</h2>
+            <p class="mb-4 text-center">
+              Both addons are now installed! You can start streaming with
+              Cinemata and Torrentio on Vidi.
+            </p>
+            <div class="text-center">
+              <button onclick="resetSetup()" class="install-button">
+                Start Over
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Advanced Addons Tab -->
+      <div id="advanced" class="tab-content hidden">
+        <div class="max-w-3xl mx-auto">
+          <div class="step-card mb-8">
+            <h2 class="text-xl font-bold mb-4">Advanced Addon Configuration</h2>
+            <p class="mb-4">
+              Configure advanced addons that require complex settings and debrid
+              integration.
+            </p>
+            <div class="setup-note mb-4">
+              <p>
+                <i class="fas fa-info-circle mr-2"></i>These addons require a
+                Real-Debrid account. Make sure you have your API key ready.
+              </p>
+            </div>
+          </div>
+
+          <!-- Advanced Torrentio Configuration -->
+          <div class="step-card mb-8">
+            <h2 class="text-xl font-bold mb-4">
+              <i class="fas fa-cog mr-2"></i>Advanced Torrentio Configuration
+            </h2>
+            <div class="space-y-4">
+              <div>
+                <label class="block mb-2">Real-Debrid API Key</label>
+                <input
+                  type="text"
+                  id="torrentioApiKey"
+                  placeholder="Enter your Real-Debrid API Key"
+                  class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-indigo-500"
+                />
+              </div>
+
+              <div>
+                <label class="block mb-2">Language Selection</label>
+                <p class="text-sm text-gray-400 mb-2">English is the default language. Select a priority foreign language if needed:</p>
+                <div class="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-48 overflow-y-auto">
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="japanese" />
+                    <span>Japanese</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="russian" />
+                    <span>Russian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="italian" />
+                    <span>Italian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="portuguese" />
+                    <span>Portuguese</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="spanish" />
+                    <span>Spanish</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="latino" />
+                    <span>Latino</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="korean" />
+                    <span>Korean</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="chinese" />
+                    <span>Chinese</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="taiwanese" />
+                    <span>Taiwanese</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="french" />
+                    <span>French</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="german" />
+                    <span>German</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="dutch" />
+                    <span>Dutch</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="hindi" />
+                    <span>Hindi</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="telugu" />
+                    <span>Telugu</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="tamil" />
+                    <span>Tamil</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="polish" />
+                    <span>Polish</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="lithuanian" />
+                    <span>Lithuanian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="latvian" />
+                    <span>Latvian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="estonian" />
+                    <span>Estonian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="czech" />
+                    <span>Czech</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="slovakian" />
+                    <span>Slovakian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="slovenian" />
+                    <span>Slovenian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="hungarian" />
+                    <span>Hungarian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="romanian" />
+                    <span>Romanian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="bulgarian" />
+                    <span>Bulgarian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="serbian" />
+                    <span>Serbian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="croatian" />
+                    <span>Croatian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="ukrainian" />
+                    <span>Ukrainian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="greek" />
+                    <span>Greek</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="danish" />
+                    <span>Danish</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="finnish" />
+                    <span>Finnish</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="swedish" />
+                    <span>Swedish</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="norwegian" />
+                    <span>Norwegian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="turkish" />
+                    <span>Turkish</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="arabic" />
+                    <span>Arabic</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="persian" />
+                    <span>Persian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="hebrew" />
+                    <span>Hebrew</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="vietnamese" />
+                    <span>Vietnamese</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="indonesian" />
+                    <span>Indonesian</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="malay" />
+                    <span>Malay</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="torrentio-lang" value="thai" />
+                    <span>Thai</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="text-center mt-6">
+                <button onclick="installTorrentioAdvanced()" class="install-button">
+                  <i class="fas fa-cog mr-2"></i>Install Torrentio
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other Advanced Addons -->
+          <div class="step-card">
+            <h2 class="text-xl font-bold mb-4">Other Debrid-Based Addons</h2>
+            <p class="mb-4">
+              More advanced addon configurations coming soon...
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Tab -->
+      <div id="faq" class="tab-content">
+        <div class="space-y-8">
+          <!-- General Questions -->
+          <div class="faq-section">
+            <h3 class="text-xl font-bold">General Questions</h3>
+            <div class="space-y-4">
+              <div class="faq-item">
+                <button class="faq-question">
+                  <span class="question-text">What is Vidi?</span>
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                  <p>Vidi is a powerful media player that enhances your streaming experience by integrating with various addons and debrid services. It provides a seamless way to access and manage high-quality streaming sources. Check out our <a href="index.html" class="text-blue-400 hover:text-blue-300">addons page</a> to explore compatible addons.</p>
+                </div>
+              </div>
+              
+              <div class="faq-item">
+                <button class="faq-question">
+                  <span class="question-text">Do I need a debrid service to use Vidi?</span>
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                  <p>Yes, Vidi requires either a Real-Debrid or AllDebrid subscription to function. These services provide high-speed, reliable access to premium streaming sources. You can sign up for either service through their respective websites.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Setup & Configuration -->
+          <div class="faq-section">
+            <h3 class="text-xl font-bold">Setup & Configuration</h3>
+            <div class="space-y-4">
+              <div class="faq-item">
+                <button class="faq-question">
+                  <span class="question-text">How do I set up Vidi with addons?</span>
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                  <p>Setting up Vidi with addons is a simple process:</p>
+                  <ol class="list-decimal ml-5 space-y-2 mt-2">
+                    <li>Install Vidi if you haven't already</li>
+                    <li>Get your API key from your debrid service (Real-Debrid or AllDebrid)</li>
+                    <li>Visit our <a href="index.html" class="text-blue-400 hover:text-blue-300">addons page</a> to configure compatible addons</li>
+                    <li>Use the configuration tool to set up your preferred options</li>
+                    <li>Click the installation button to add the addon to Vidi</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Features & Functionality -->
+          <div class="faq-section">
+            <h3 class="text-xl font-bold">Features & Functionality</h3>
+            <div class="space-y-4">
+              <div class="faq-item">
+                <button class="faq-question">
+                  <span class="question-text">What quality options are available?</span>
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                  <p>When configuring addons in Vidi, you can select from various quality options:</p>
+                  <ul class="list-disc ml-5 space-y-2 mt-2">
+                    <li>4K/2160p content</li>
+                    <li>1080p Full HD</li>
+                    <li>720p HD</li>
+                    <li>HDR content</li>
+                    <li>Dolby Vision</li>
+                    <li>Remux quality</li>
+                  </ul>
+                  <p class="mt-2">You can customize which quality options you want to see in the addon configuration settings.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question">
+                  <span class="question-text">Which addons can I use with Vidi?</span>
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                  <p>Vidi works with popular addons like Torrentio and Comet. Visit our <a href="index.html" class="text-blue-400 hover:text-blue-300">addons page</a> to see the full list of compatible addons and their configuration options. Each addon can be customized with your preferred settings for the best streaming experience.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer text-white mt-8">
+        <p>Made by @nhyira_90709</p>
+      </div>
+    </div>
+
+    <script>
+      // Global variables and functions
+      let currentStep = 1;
+      
+      const TORRENTIO_RD_MANIFEST = "vidi://torrentio.strem.fun/realdebrid=";
+      const TORRENTIO_AD_MANIFEST = "vidi://torrentio.strem.fun/alldebrid=";
+      const MANIFEST_SUFFIX = "/manifest.json";
+
+      function toggleMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const isOpen = mobileMenu.style.transform === 'translateX(0%)';
+        mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0%)';
+      }
+
+      function installTorrentio() {
+        const apiToken = document.getElementById('apiToken').value.trim();
+        if (!apiToken) {
+          alert('Please enter your Real-Debrid API token');
+          return;
+        }
+        
+        // Create the Vidi URL with the Real-Debrid token
+        const vidiUrl = `${TORRENTIO_RD_MANIFEST}${apiToken}${MANIFEST_SUFFIX}`;
+        
+        // Create a hidden link and click it
+        const link = document.createElement('a');
+        link.href = vidiUrl;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        markStepComplete(2);
+      }
+
+      function installTorrentioAllDebrid() {
+        const apiToken = document.getElementById('allDebridToken').value.trim();
+        if (!apiToken) {
+          alert('Please enter your AllDebrid API token');
+          return;
+        }
+        
+        // Create the Vidi URL with the AllDebrid token
+        const vidiUrl = `${TORRENTIO_AD_MANIFEST}${apiToken}${MANIFEST_SUFFIX}`;
+        
+        // Create a hidden link and click it
+        const link = document.createElement('a');
+        link.href = vidiUrl;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        markStepComplete(2);
+      }
+
+      function installTorrentioAdvanced() {
+        const apiKey = document.getElementById('torrentioApiKey').value.trim();
+        const selectedLanguages = Array.from(document.querySelectorAll('.torrentio-lang')).filter(lang => lang.checked).map(lang => lang.value);
+        if (!apiKey) {
+          alert('Please enter your Real-Debrid API key');
+          return;
+        }
+        
+        // Create the Vidi URL with the Real-Debrid token and selected languages
+        const languageParam = selectedLanguages.length > 0 ? `&language=${selectedLanguages.join(',')}` : '';
+        const vidiUrl = `${TORRENTIO_RD_MANIFEST}${apiKey}${languageParam}${MANIFEST_SUFFIX}`;
+        
+        // Create a hidden link and click it
+        const link = document.createElement('a');
+        link.href = vidiUrl;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      function switchTab(tabId) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+          tab.classList.add('hidden');
+          tab.classList.remove('active');
+        });
+        
+        // Remove active class from all buttons
+        document.querySelectorAll('.tab-button').forEach(button => {
+          button.classList.remove('active');
+        });
+        
+        // Show selected tab
+        const selectedTab = document.getElementById(tabId);
+        selectedTab.classList.remove('hidden');
+        selectedTab.classList.add('active');
+        
+        // Add active class to clicked button
+        const activeButton = Array.from(document.querySelectorAll('.tab-button')).find(button => {
+          return button.textContent.trim().toLowerCase().includes(tabId.toLowerCase());
+        });
+        if (activeButton) activeButton.classList.add('active');
+      }
+
+      function goToStep(step) {
+        // Hide all steps
+        document.querySelectorAll('.step-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        
+        // Show selected step
+        const stepContent = document.getElementById('step' + step);
+        if (stepContent) {
+          stepContent.classList.add('active');
+        }
+        
+        // Update progress indicators
+        document.querySelectorAll('.wizard-step').forEach((stepIndicator, index) => {
+          if (index + 1 <= step) {
+            stepIndicator.classList.add('active');
+          } else {
+            stepIndicator.classList.remove('active');
+          }
+        });
+        
+        currentStep = step;
+      }
+
+      function markStepComplete(step) {
+        setTimeout(() => {
+          if (step < 3) {
+            goToStep(step + 1);
+          }
+        }, 1000);
+      }
+
+      function resetSetup() {
+        document.getElementById('apiToken').value = '';
+        document.getElementById('allDebridToken').value = '';
+        goToStep(1);
+        document.querySelectorAll('.wizard-step').forEach(step => {
+          step.classList.remove('active', 'complete');
+        });
+        document.querySelector('.wizard-step[data-step="1"]').classList.add('active');
+      }
+
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        initializeFAQ();
+        goToStep(1); // Start at step 1
+      });
+
+      function initializeFAQ() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+          const question = item.querySelector('.faq-question');
+          const answer = item.querySelector('.faq-answer');
+          
+          question.addEventListener('click', () => {
+            const isOpen = answer.classList.contains('active');
+            
+            // Close all answers
+            document.querySelectorAll('.faq-answer').forEach(a => {
+              a.classList.remove('active');
+              a.style.maxHeight = '0px';
+            });
+            
+            // Toggle clicked answer
+            if (!isOpen) {
+              answer.classList.add('active');
+              answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+          });
+        });
+      }
+    </script>
+    <script>
+      // Loading animation
+      window.addEventListener('load', () => {
+        const loader = document.querySelector('.loader');
+        setTimeout(() => {
+          loader.classList.add('fade-out');
+        }, 500);
+      });
+
+      // Scroll to top functionality
+      window.addEventListener('scroll', () => {
+        const scrollBtn = document.querySelector('.scroll-to-top');
+        if (window.scrollY > 300) {
+          scrollBtn.classList.add('visible');
+        } else {
+          scrollBtn.classList.remove('visible');
+        }
+      });
+
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    </script>
+  </body>
+</html>

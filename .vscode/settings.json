@@ -1,0 +1,13 @@
+{
+    "liveServer.settings.port": 5502,
+    "vscord.buttons": [
+        {
+            "label": "View This Project",
+            "url": "https://vidi-addons.netlify.app/"
+        },
+        {
+            "label": "Discord Bot For This Project",
+            "url": "https://github.com/nhyyebo/vidiaddons"
+        }
+    ]
+}

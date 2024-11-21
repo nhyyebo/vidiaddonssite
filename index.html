@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <title>Vidi Addons</title>
+    <link rel="icon" href="addonicons/vidi.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="appicon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Vidi Addons Site">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Official Vidi Addons - Configure and install high-quality addons with Real-Debrid and AllDebrid integration for your Vidi media player. Get premium streaming sources with easy setup.">
+    <meta name="keywords" content="Vidi, Vidi Addons, Torrentio, Comet, Real-Debrid, AllDebrid, Media Player">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Vidi Addons - Premium Media Player Extensions">
+    <meta property="og:description" content="Enhance your Vidi experience with premium addons. Configure Torrentio and Comet with debrid integration for high-quality streaming.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vidi Addons">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Vidi",
+        "applicationCategory": "MediaPlayer",
+        "operatingSystem": "Windows",
+        "description": "Premium media player with advanced addon support and debrid service integration"
+    }
+    </script>
+    <style>
+      body {
+        font-family: "Baloo", sans-serif;
+      }
+
+      .loader {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: black;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      .loader.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader-content {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        margin-bottom: 2rem;
+      }
+
+      .loader-circle {
+        width: 100%;
+        height: 100%;
+        border: 4px solid #3b82f6;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .loader-inner-circle {
+        width: 70%;
+        height: 70%;
+        border: 4px solid #8b5cf6;
+        border-radius: 50%;
+        border-bottom-color: transparent;
+        animation: spin 1.5s linear infinite reverse;
+        position: absolute;
+        top: 15%;
+        left: 15%;
+      }
+
+      .loader-message {
+        text-align: center;
+        color: white;
+        font-size: 1.5rem;
+        margin-top: 1rem;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease-out forwards 0.5s;
+      }
+
+      .loader-credit {
+        position: absolute;
+        bottom: 2rem;
+        color: #6b7280;
+        font-size: 0.875rem;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease-out forwards 1s;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .whats-new-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(17, 24, 39, 0.95);
+        backdrop-filter: blur(8px);
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        z-index: 1000;
+        width: 90%;
+        max-width: 500px;
+        display: none;
+      }
+
+      .whats-new-popup.show {
+        display: block;
+        animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 999;
+        display: none;
+      }
+
+      .popup-overlay.show {
+        display: block;
+      }
+
+      @keyframes popIn {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -45%) scale(0.95);
+        }
+        100% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .scroll-to-top {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .scroll-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+    </style>
+  </head>
+  <body class="bg-black text-white font-['Baloo']">
+    <!-- Loading Animation -->
+    <div class="loader">
+      <div class="loader-content">
+        <div class="loader-circle"></div>
+        <div class="loader-inner-circle"></div>
+      </div>
+      <div class="loader-message">Welcome to Vidi Addons!</div>
+      <div class="loader-credit">Made with ❤️ by nhyira</div>
+    </div>
+
+    <!-- What's New Popup -->
+    <div class="popup-overlay">
+      <div class="whats-new-popup">
+        <h2 class="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">What's New in Vidi Addons! 🎉</h2>
+        <div class="space-y-4 mb-6">
+          <p class="text-gray-300">We're excited to announce our brand new Discord Bot! 🤖</p>
+          <div class="bg-gray-800 rounded-lg p-4">
+            <h3 class="text-lg font-semibold text-blue-400 mb-2">Discord Bot Features:</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+              <li>Real-time support and assistance</li>
+              <li>Automatic setup guides</li>
+              <li>Community updates and announcements</li>
+              <li>Easy access to addon configurations</li>
+            </ul>
+          </div>
+        </div>
+        <div class="flex justify-center space-x-4">
+          <a href="https://discord.gg/mvFSFmTfBz" target="_blank" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center">
+            <i class="fab fa-discord mr-2"></i>Join Discord
+          </a>
+          <button onclick="closeWhatsNew()" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition-all duration-300">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button onclick="scrollToTop()" class="scroll-to-top fixed bottom-4 right-4 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transform hover:scale-110 transition-all duration-300 z-50">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    <div class="container mx-auto p-5">
+      <!-- Header with Logo -->
+      <div class="flex justify-between items-center mb-8 sticky top-0 z-50 bg-black bg-opacity-95 backdrop-blur-sm p-4 shadow-lg">
+        <a href="https://vidi.norsb.org/mobile" target="_blank" class="transform hover:scale-105 transition-transform duration-300">
+          <img
+            src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/3a/12/78/3a1278f2-5ba6-fe17-fb67-b38923227f72/AppIcon-0-0-1x_U007epad-0-1-85-220.png/460x0w.webp"
+            alt="VIDI Icon"
+            class="w-12 h-12 mr-3 rounded-full shadow-md"
+          />
+        </a>
+        <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Vidi Addons</h1>
+
+        <div class="sm:hidden">
+          <button
+            onclick="toggleMenu()"
+            class="menu-icon text-custom focus:outline-none p-3 hover:bg-gray-800 active:bg-gray-700 rounded-lg transition duration-300 transform hover:scale-105"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+        <div class="hidden sm:flex space-x-6">
+          <a href="index.html" class="text-lg text-custom hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2"><i class="fas fa-home mr-2"></i>Addons</a>
+          <a href="guide.html" class="text-lg text-custom hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2"><i class="fas fa-book mr-2"></i>Guide</a>
+          <a href="credits.html" class="text-lg text-custom hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2"><i class="fas fa-award mr-2"></i>Credits</a>
+          <a
+            href="https://discord.gg/mvFSFmTfBz"
+            target="_blank"
+            class="text-lg text-custom hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2"
+            ><i class="fab fa-discord mr-2"></i>Discord</a
+          >
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="mobile-menu transform transition-transform duration-300 ease-in-out">
+        <button onclick="toggleMenu()" class="absolute top-6 right-6 text-gray-400 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-all duration-300">
+          <i class="fas fa-times text-2xl"></i>
+        </button>
+        <a href="index.html" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 rounded-xl mb-4 flex items-center justify-center"
+          ><i class="fas fa-home mr-3"></i>Addons</a
+        >
+        <a href="guide.html" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 rounded-xl mb-4 flex items-center justify-center"
+          ><i class="fas fa-book mr-3"></i>Guide</a
+        >
+        <a href="credits.html" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 rounded-xl mb-4 flex items-center justify-center"
+          ><i class="fas fa-award mr-3"></i>Credits</a
+        >
+        <a
+          href="https://discord.gg/mvFSFmTfBz"
+          target="_blank"
+          class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 rounded-xl mb-4 flex items-center justify-center"
+          ><i class="fab fa-discord mr-3"></i>Discord</a
+        >
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-container flex items-center">
+        <input
+          id="search"
+          type="text"
+          placeholder="Search addons by name, category, or features..."
+          class="search-input w-full"
+          autocomplete="off"
+        />
+        <i class="fas fa-search search-icon"></i>
+        <i class="fas fa-times search-clear" id="searchClear"></i>
+      </div>
+
+      <!-- Category Buttons -->
+      <div class="flex overflow-x-auto mb-6 space-x-4 px-4 sm:px-2">
+        <button
+          onclick="filterCategory('')"
+          class="category-button bg-gray-800 text-custom px-6 py-3 rounded-lg text-base sm:px-4 sm:py-2 sm:text-sm"
+        >
+          All
+        </button>
+        <button
+          onclick="filterCategory('Debrid Links')"
+          class="category-button bg-gray-800 text-custom px-6 py-3 rounded-lg text-base sm:px-4 sm:py-2 sm:text-sm"
+        >
+          Debrid Links
+        </button>
+        <button
+          onclick="filterCategory('Metadata')"
+          class="category-button bg-gray-800 text-custom px-6 py-3 rounded-lg text-base sm:px-4 sm:py-2 sm:text-sm"
+        >
+          Metadata
+        </button>
+        <button
+          onclick="filterCategory('Catalogs')"
+          class="category-button bg-gray-800 text-custom px-6 py-3 rounded-lg text-base sm:px-4 sm:py-2 sm:text-sm"
+        >
+          Catalogs
+        </button>
+        <button
+          onclick="filterCategory('Subtitles')"
+          class="category-button bg-gray-800 text-custom px-6 py-3 rounded-lg text-base sm:px-4 sm:py-2 sm:text-sm"
+        >
+          Subtitles
+        </button>
+        <button
+          onclick="filterCategory('Other')"
+          class="category-button bg-gray-800 text-custom px-6 py-3 rounded-lg text-base sm:px-4 sm:py-2 sm:text-sm"
+        >
+          Other
+        </button>
+      </div>
+
+      <!-- Addon Cards -->
+      <div
+        id="addons"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <!-- Cards will be dynamically added here -->
+      </div>
+
+      <div class="footer text-custom mt-8">
+        <p>Made by @nhyira_90709</p>
+      </div>
+    </div>
+
+    <div id="copyAlert" class="copy-alert">Copied!</div>
+
+    
+    <!-- Addon Details Modal -->
+    <div id="addonModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+      <div class="bg-gray-800 rounded-lg p-8 max-w-2xl w-full mx-4 relative">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+        <div id="modalContent" class="space-y-6">
+          <div class="flex items-center space-x-4">
+            <img id="modalIcon" class="w-20 h-20 rounded-lg" src="" alt="">
+            <div>
+              <h2 id="modalTitle" class="text-2xl font-bold"></h2>
+              <p id="modalCategory" class="text-gray-400"></p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <h3 class="text-lg font-semibold mb-2">Description</h3>
+              <p id="modalDescription" class="text-gray-300"></p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-2">Features</h3>
+              <ul id="modalFeatures" class="list-disc list-inside text-gray-300 space-y-1"></ul>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-2">Installation</h3>
+              <p id="modalInstallation" class="text-gray-300"></p>
+            </div>
+          </div>
+          <div class="flex space-x-4 mt-6">
+            <button id="modalCopyBtn" onclick="copyLink(document.getElementById('modalCopyBtn').dataset.link, event, this)" 
+                    class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+              Copy
+            </button>
+            <button id="modalConfigureBtn" onclick="window.open(this.dataset.url, '_blank')"
+                    class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300 hidden">
+              Configure
+            </button>
+            <button id="modalInstallBtn" onclick="window.open(this.dataset.url, '_self')"
+                    class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300 hidden">
+              Install
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New in Vidi Popup -->
+    <div id="newInVidiPopup" class="popup">
+      <h2>New in Vidi</h2>
+      <p>You can now save this site to your homescreen via Safari. Follow these steps:</p>
+      <ol>
+        <li>Open Safari and navigate to this site.</li>
+        <li>Tap the "Share" button at the bottom of the screen.</li>
+        <li>Select "Add to Home Screen" from the options.</li>
+        <li>Tap "Add" in the top-right corner.</li>
+      </ol>
+    </div>
+
+    <script>
+      // Loading animation
+      window.addEventListener('load', () => {
+        const loader = document.querySelector('.loader');
+        setTimeout(() => {
+          loader.classList.add('fade-out');
+          showWhatsNew();
+        }, 2000);
+      });
+
+      // Scroll to top functionality
+      window.addEventListener('scroll', () => {
+        const scrollBtn = document.querySelector('.scroll-to-top');
+        if (window.scrollY > 300) {
+          scrollBtn.classList.add('visible');
+        } else {
+          scrollBtn.classList.remove('visible');
+        }
+      });
+
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+
+      // What's New Popup
+      function showWhatsNew() {
+        const overlay = document.querySelector('.popup-overlay');
+        const popup = document.querySelector('.whats-new-popup');
+        overlay.classList.add('show');
+        popup.classList.add('show');
+      }
+
+      function closeWhatsNew() {
+        const overlay = document.querySelector('.popup-overlay');
+        const popup = document.querySelector('.whats-new-popup');
+        overlay.classList.remove('show');
+        popup.classList.remove('show');
+      }
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

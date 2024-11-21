@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <title>Vidi Addons Credits</title>
+    <link rel="icon" href="addonicons/vidi.png" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Credits and acknowledgments for Vidi Addons - Recognizing the contributors and technologies that make our media player extensions possible.">
+    <meta name="keywords" content="Vidi, Vidi Addons, Credits, Contributors, Media Player">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Vidi Addons - Credits & Acknowledgments">
+    <meta property="og:description" content="Recognizing the contributors and technologies behind Vidi's addon ecosystem.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vidi Addons">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Vidi Addons Credits",
+        "description": "Credits and acknowledgments for the Vidi media player addon ecosystem"
+    }
+    </script>
+    
+    <style>
+      body {
+        font-family: "Baloo", sans-serif;
+      }
+
+      .loader {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: black;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      .loader.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader-content {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        margin-bottom: 2rem;
+      }
+
+      .loader-circle {
+        width: 100%;
+        height: 100%;
+        border: 4px solid #3b82f6;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .loader-inner-circle {
+        width: 70%;
+        height: 70%;
+        border: 4px solid #8b5cf6;
+        border-radius: 50%;
+        border-bottom-color: transparent;
+        animation: spin 1.5s linear infinite reverse;
+        position: absolute;
+        top: 15%;
+        left: 15%;
+      }
+
+      .loader-message {
+        text-align: center;
+        color: white;
+        font-size: 1.5rem;
+        margin-top: 1rem;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease-out forwards 0.5s;
+      }
+
+      .loader-credit {
+        position: absolute;
+        bottom: 2rem;
+        color: #6b7280;
+        font-size: 0.875rem;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease-out forwards 1s;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .scroll-to-top {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .scroll-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+    </style>
+
+  </head>
+  <body class="bg-black text-white font-['Baloo']">
+    <!-- Loading Animation -->
+    <div class="loader">
+      <div class="loader-content">
+        <div class="loader-circle"></div>
+        <div class="loader-inner-circle"></div>
+      </div>
+      <div class="loader-message">Welcome to Vidi Credits!</div>
+      <div class="loader-credit">Made with ❤️ by nhyira</div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button onclick="scrollToTop()" class="scroll-to-top fixed bottom-4 right-4 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transform hover:scale-110 transition-all duration-300 z-50">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    <div class="container mx-auto p-4 md:p-5">
+      <!-- Navbar -->
+      <div class="flex justify-between items-center mb-8 sticky top-0 z-50 bg-black bg-opacity-95 backdrop-blur-sm p-4 shadow-lg">
+        <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Credits</h1>
+        <div class="sm:hidden">
+          <button
+            onclick="toggleMenu()"
+            class="text-white focus:outline-none p-3 hover:bg-gray-800 active:bg-gray-700 rounded-lg transition-all duration-300 transform hover:scale-105"
+          >
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+        <div class="hidden sm:flex space-x-6">
+          <a href="index.html" class="text-lg text-white hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2">
+            <i class="fas fa-home mr-2"></i>Addons
+          </a>
+          <a href="guide.html" class="text-lg text-white hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2">
+            <i class="fas fa-book mr-2"></i>Guide
+          </a>
+          <a href="credits.html" class="text-lg text-white hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2">
+            <i class="fas fa-award mr-2"></i>Credits
+          </a>
+          <a
+            href="https://discord.gg/mvFSFmTfBz"
+            target="_blank"
+            class="text-lg text-white hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2"
+          >
+            <i class="fab fa-discord mr-2"></i>Discord
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="fixed inset-0 bg-black bg-opacity-95 transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col items-center justify-center">
+        <button onclick="toggleMenu()" class="absolute top-6 right-6 text-gray-400 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-all duration-300">
+          <i class="fas fa-times text-2xl"></i>
+        </button>
+        <div class="flex flex-col items-center space-y-6 w-full px-4">
+          <a href="index.html" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 py-4 rounded-xl flex items-center justify-center text-xl">
+            <i class="fas fa-home mr-3"></i>Addons
+          </a>
+          <a href="guide.html" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 py-4 rounded-xl flex items-center justify-center text-xl">
+            <i class="fas fa-book mr-3"></i>Guide
+          </a>
+          <a href="credits.html" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 py-4 rounded-xl flex items-center justify-center text-xl">
+            <i class="fas fa-award mr-3"></i>Credits
+          </a>
+          <a href="https://discord.gg/mvFSFmTfBz" target="_blank" class="transform hover:scale-105 transition-all duration-300 bg-gray-800 bg-opacity-50 w-4/5 py-4 rounded-xl flex items-center justify-center text-xl">
+            <i class="fab fa-discord mr-3"></i>Discord
+          </a>
+        </div>
+      </div>
+
+      <!-- Introduction -->
+      <div class="text-center mb-12 opacity-0 animate-[fadeIn_0.8s_ease-in_forwards]">
+        <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">About This Project</h2>
+        <p class="text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          Vidi Addons is a community-driven project that aims to enhance your streaming experience.
+          Here are the amazing people who made this possible.
+        </p>
+      </div>
+
+      <!-- Credits Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <!-- Credit Card 1 -->
+        <div class="group bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-500/20">
+          <div class="flex items-center space-x-4 mb-4">
+            <img
+              src="me.png"
+              alt="Profile"
+              class="w-16 h-16 rounded-full border-2 border-blue-500 transform transition-transform duration-300 group-hover:scale-110 group-hover:border-purple-500"
+            />
+            <div>
+              <span class="inline-block px-3 py-1 text-sm bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-white mb-2">Site Creator</span>
+              <h3 class="text-xl font-bold">@nhyira_90709</h3>
+            </div>
+          </div>
+          <p class="text-gray-400 mb-4">Developer of the Vidi Addons website, creating a seamless browsing experience.</p>
+        </div>
+
+        <!-- Credit Card 2 -->
+        <div class="group bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-500/20">
+          <div class="flex items-center space-x-4 mb-4">
+            <img
+              src="par.png"
+              alt="Profile"
+              class="w-16 h-16 rounded-full border-2 border-blue-500 transform transition-transform duration-300 group-hover:scale-110 group-hover:border-purple-500"
+            />
+            <div>
+              <span class="inline-block px-3 py-1 text-sm bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-white mb-2">Developer</span>
+              <h3 class="text-xl font-bold">@par</h3>
+            </div>
+          </div>
+          <p class="text-gray-400 mb-4">Core developer of Vidi, created the foundation of the Vidi media player.</p>
+        </div>
+
+        <!-- Join Community Card -->
+        <div class="md:col-span-2 lg:col-span-3">
+          <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-8 text-center transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/20">
+            <h3 class="text-2xl font-bold mb-4">Join Our Community</h3>
+            <p class="text-gray-200 mb-6 max-w-2xl mx-auto">
+              Be part of our growing community! Join us on Discord to get help, share ideas, and connect with other users.
+            </p>
+            <a
+              href="https://discord.gg/mvFSFmTfBz"
+              target="_blank"
+              class="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            >
+              <i class="fab fa-discord mr-2 text-xl"></i>
+              Join Discord
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-center text-gray-400 mt-12 pb-8">
+        <p class="text-sm">Made with ❤️ by @nhyira_90709</p>
+      </div>
+    </div>
+
+    <script>
+      function toggleMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const isOpen = mobileMenu.style.transform === 'translateX(0%)';
+        mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0%)';
+      }
+
+      // Loading animation
+      window.addEventListener('load', () => {
+        const loader = document.querySelector('.loader');
+        setTimeout(() => {
+          loader.classList.add('fade-out');
+        }, 500);
+      });
+
+      // Scroll to top functionality
+      window.addEventListener('scroll', () => {
+        const scrollBtn = document.querySelector('.scroll-to-top');
+        if (window.scrollY > 300) {
+          scrollBtn.classList.add('visible');
+        } else {
+          scrollBtn.classList.remove('visible');
+        }
+      });
+
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    </script>
+  </body>
+</html>
