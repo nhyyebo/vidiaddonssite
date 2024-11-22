@@ -10,6 +10,20 @@ function toggleMenu() {
 
 const addons = [
     {
+        name: "TorBox",
+        link: "https://stremio.torbox.app/manifest.json",
+        icon: "addonicons/torbox.png",
+        category: "Featured",
+        configureUrl: "https://torbox.app/settings",
+        description: "The New Up and Coming Debrid Link Addon",
+        features: [
+            "Access to SubSource's vast library of subtitles",
+            "Support for multiple languages",
+            "Easy to use interface"
+        ],
+        installation: "Click the Configure button to set up this addon with your SubSource account. <a href='torbox-guide.html' class='text-blue-500'>Read More</a>"
+    },
+    {
         name: "Cinemeta",
         link: "vidi://v3-cinemeta.strem.io/manifest.json",
         icon: "addonicons/cine.jpeg",
@@ -231,6 +245,7 @@ const addons = [
         ],
         installation: "Click the Configure button to set up this addon with your SubSource account."
     },
+    
 ];
 
 function showModal(addon) {
@@ -253,7 +268,7 @@ function showModal(addon) {
         featuresList.appendChild(li);
     });
     
-    document.getElementById('modalInstallation').textContent = addon.installation;
+    document.getElementById('modalInstallation').innerHTML = addon.installation;
     
     // Setup buttons
     const copyBtn = document.getElementById('modalCopyBtn');
@@ -340,6 +355,11 @@ function renderAddons(filter = "", category = "") {
                         </span>
                     ` : ''}
                 </div>
+                ${addon.name === 'TorBox' ? `
+                <div class="mt-4">
+                    <a href="torbox-guide.html" class="text-blue-500 hover:underline">Read More</a>
+                </div>
+                ` : ''}
                 <div class="button-group">
                     <button onclick="copyLink('${addon.link}', event, this)" 
                             class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300">
