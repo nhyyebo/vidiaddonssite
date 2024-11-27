@@ -218,7 +218,7 @@ const addons = [
         installation: "Click the Configure button to set up this addon with your Letterboxd account."
     },
     {
-        name: "Jaccketio",
+        name: "Jackettio",
         link: "https://jackettio.elfhosted.com/manifest.json",
         icon: "addonicons/jackett.png",
         category: "Debrid Links",
