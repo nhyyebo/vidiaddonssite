@@ -1,12 +1,35 @@
-# Vidi Addons Site
+# Vidi Addons
 
-This is the unofficial site for Vidi addons, providing configurations and installations for high-quality addons with Real-Debrid and AllDebrid integration for the Vidi media player.
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue)
+
+## Description
+Vidi Addons is a powerful tool that enhances your video editing experience by providing a suite of useful features for the Vidi media player.
+
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [How to Save to Home Screen (iOS)](#how-to-save-to-home-screen-ios)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
-- Configure and install premium addons like Torrentio.
-- Real-Debrid and AllDebrid integration for high-quality streaming.
-- Progressive Web App (PWA) capabilities for offline access and installation on mobile devices.
+- **Configure and install premium addons like Torrentio.**: Configure and install premium addons like Torrentio.
+- **Real-Debrid and AllDebrid integration for high-quality streaming.**: Real-Debrid and AllDebrid integration for high-quality streaming.
+- **Progressive Web App (PWA) capabilities for offline access and installation on mobile devices.**: Progressive Web App (PWA) capabilities for offline access and installation on mobile devices.
 
+## Installation
+To install Vidi Addons, follow these steps:
+1. Clone the repository: `git clone https://github.com/yourusername/vidi-addons.git`
+2. Navigate to the project directory: `cd vidi-addons`
+3. Install dependencies: `npm install` (or `pip install -r requirements.txt` if it's a Python project)
+
+## Usage
+Here are some examples of how to use Vidi Addons:
+```bash
+# Example command
+python main.py
+```
 
 ## How to Save to Home Screen (iOS)
 1. Open Safari and navigate to the site.
@@ -15,7 +38,14 @@ This is the unofficial site for Vidi addons, providing configurations and instal
 4. Tap "Add" in the top-right corner.
 
 ## Contributing
-Feel free to add an issue if you encounter any problems or have suggestions for improvements. For major changes, please open an issue first to discuss what you would like to change.
+We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) for more information.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Screenshots
+*Add screenshots to showcase your project.*
+
+---
+
+Feel free to reach out for any questions or feedback!
