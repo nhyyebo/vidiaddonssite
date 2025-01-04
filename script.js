@@ -245,6 +245,20 @@ const addons = [
         ],
         installation: "Click the Configure button to set up this addon with your SubSource account."
     },
+    {
+        name: "MdbList",
+        link: "https://1fe84bc728af-stremio-mdblist.baby-beamup.club/manifest.json",
+        icon: "addonicons/mdblist.png",
+        category: "Catalogs",
+        configureUrl: "https://1fe84bc728af-stremio-mdblist.baby-beamup.club/configure",
+        description: "A catalog addon that provides access to MdbList's vast library of movie and TV show information.",
+        features: [
+            "Access to MdbList's vast library of movie and TV show information",
+            "Detailed information about titles, including cast, crew, and ratings",
+            "Easy to use interface"
+        ],
+        
+    },
     
 ];
 

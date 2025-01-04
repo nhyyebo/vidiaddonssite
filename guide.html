@@ -506,44 +506,55 @@
         pointer-events: none;
       }
 
-      .loader-content {
-        width: 120px;
-        height: 120px;
-        position: relative;
+      .progress-bar {
+        width: 80%;
+        height: 20px;
+        background-color: #444;
+        border-radius: 10px;
+        overflow: hidden;
         margin-bottom: 2rem;
+        position: relative;
       }
 
-      .loader-circle {
-        width: 100%;
+      .progress {
         height: 100%;
-        border: 4px solid #3b82f6;
-        border-radius: 50%;
-        border-top-color: transparent;
-        animation: spin 1s linear infinite;
-        position: absolute;
-        top: 0;
-        left: 0;
+        width: 0;
+        background: linear-gradient(135deg, #3b82f6, #9333ea);
+        border-radius: 10px;
+        animation: loading 2s forwards;
       }
 
-      .loader-inner-circle {
-        width: 70%;
-        height: 70%;
-        border: 4px solid #8b5cf6;
-        border-radius: 50%;
-        border-bottom-color: transparent;
-        animation: spin 1.5s linear infinite reverse;
-        position: absolute;
-        top: 15%;
-        left: 15%;
+      @keyframes loading {
+        0% { width: 0; }
+        100% { width: 100%; }
+      }
+
+      .loader-title {
+        background: linear-gradient(to right, #3b82f6, #9333ea);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-align: center;
+      }
+
+      .loader-episode {
+        background: linear-gradient(to right, #3b82f6, #9333ea);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        text-align: center;
       }
 
       .loader-message {
         text-align: center;
         color: white;
         font-size: 1.5rem;
-        margin-top: 1rem;
         opacity: 0;
         animation: fadeInUp 0.5s ease-out forwards 0.5s;
+        transform: translateY(20px);
       }
 
       .loader-credit {
@@ -555,12 +566,6 @@
         animation: fadeInUp 0.5s ease-out forwards 1s;
       }
 
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
       @keyframes fadeInUp {
         from {
           opacity: 0;
@@ -569,6 +574,36 @@
         to {
           opacity: 1;
           transform: translateY(0);
+        }
+      }
+
+      .play-button {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(to right, #3b82f6, #9333ea);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1rem;
+        animation: pulse 1.5s infinite;
+        cursor: pointer;
+      }
+
+      .play-button i {
+        color: black;
+        font-size: 30px;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
         }
       }
       /* Scroll to Top Button */
@@ -609,11 +644,15 @@
   <body class="bg-black text-white font-['Baloo']">
     <!-- Loading Animation -->
     <div class="loader">
-      <div class="loader-content">
-        <div class="loader-circle"></div>
-        <div class="loader-inner-circle"></div>
+      <div class="loader-title">Vidi Addons</div>
+      <div class="loader-episode">S5 EP4: School</div>
+      <div class="progress-bar">
+        <div class="progress"></div>
       </div>
-      <div class="loader-message">Welcome to Vidi Guide!</div>
+      <div class="loader-message">Loading your experience...</div>
+      <div class="play-button" onclick="startWatching()">
+        <i class="fas fa-play"></i>
+      </div>
       <div class="loader-credit">Made with ❤️ by nhyira</div>
     </div>
 
@@ -1285,7 +1324,8 @@
         const loader = document.querySelector('.loader');
         setTimeout(() => {
           loader.classList.add('fade-out');
-        }, 500);
+          // Optionally, you can call a function to show any new content or popups
+        }, 2000); // Adjust the timeout as needed
       });
 
       // Scroll to top functionality
@@ -1303,6 +1343,12 @@
           top: 0,
           behavior: 'smooth'
         });
+      }
+
+      function startWatching() {
+        // Logic to start watching the show
+        console.log("Starting the show...");
+        // You can redirect to the actual show page or perform any action here
       }
     </script>
   </body>
