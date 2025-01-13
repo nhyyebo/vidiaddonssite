@@ -10,19 +10,21 @@ function toggleMenu() {
 
 const addons = [
     {
-        name: "TorBox",
-        link: "https://stremio.torbox.app/manifest.json",
-        icon: "addonicons/torbox.png",
-        category: "Featured",
-        configureUrl: "https://torbox.app/settings",
-        description: "The New Up and Coming Debrid Link Addon",
+        name: "AIOStreams",
+        configureUrl: "https://aiostreams.elfhosted.com/configure",
+        icon: "addonicons/aios.png",
+        category: "Debrid Links, Feautured",
+        label: "Feautured",
+        link: "https://aiostreams.elfhosted.com/configure",
+        
+        description: "Source Wrapper for multiple debrid services",
         features: [
-            "Access to SubSource's vast library of subtitles",
-            "Support for multiple languages",
-            "Easy to use interface"
+            "Access to a large library of torrent files",
+            "Support for multiple debrid services"
         ],
-        installation: "Click the Configure button to set up this addon with your SubSource account. <a href='torbox-guide.html' class='text-blue-500'>Read More</a>"
+        
     },
+   
     {
         name: "Cinemeta",
         link: "vidi://v3-cinemeta.strem.io/manifest.json",
@@ -177,6 +179,20 @@ const addons = [
         installation: "Click the Install button to add this addon to your Vidi player. No configuration required."
     },
     {
+        name: "TorBox",
+        link: "https://stremio.torbox.app/manifest.json",
+        icon: "addonicons/torbox.png",
+        category: "Debrid Links",
+        configureUrl: "https://torbox.app/settings",
+        description: "The New Up and Coming Debrid Link Addon",
+        features: [
+            "Access to SubSource's vast library of subtitles",
+            "Support for multiple languages",
+            "Easy to use interface"
+        ],
+        installation: "Click the Configure button to set up this addon with your SubSource account. <a href='torbox-guide.html' class='text-blue-500'>Read More</a>"
+    },
+    {
         name: "Easy News+",
         link: "https://b89262c192b0-stremio-easynews-addon.baby-beamup.club/manifest.json",
         icon: "addonicons/easynews.jpeg",
@@ -256,6 +272,65 @@ const addons = [
             "Access to MdbList's vast library of movie and TV show information",
             "Detailed information about titles, including cast, crew, and ratings",
             "Easy to use interface"
+        ],
+        
+    },
+    
+    {
+        name: "Peerflix",
+        link: "https://peerflix.mov/manifest.json",
+        icon: "addonicons/peerflix.svg",
+        category: "Debrid Links",
+        configureUrl: "https://config.peerflix.mov/",
+        description: "A debrid link addon that provides access to a wide range of media files.",
+        features: [
+            "Access to a large library of media files",
+            "Support for multiple debrid services",
+            "Easy to use interface"
+            
+        ],
+        
+    },
+    {
+        name: "Orion",
+        link: "https://5a0d1888fa64-orion.baby-beamup.club/configure",
+        icon: "addonicons/orion.png",
+        category: "Debrid Links",
+        configureUrl: "https://5a0d1888fa64-orion.baby-beamup.club/configure",
+        description: "A debrid link addon that provides access to a wide range of media files.",
+        features: [
+            "Access to a large library of media files",
+            "Support for multiple debrid services",
+            "Easy to use interface"
+            
+        ],
+        
+    },
+    {
+        name: "Preimumize",
+        link: "https://premiumize.duckdns.org/",
+        icon: "addonicons/premiumize.png",
+        category: "Debrid Links",
+        configureUrl: "https://premiumize.duckdns.org/",
+        description: "A debrid link addon that provides access to a wide range of media files.",
+        features: [
+            "Access to a large library of media files",
+            "Support for multiple debrid services",
+            "Easy to use interface"
+            
+        ],
+        
+    },
+    {
+        name: "Rotten Tomatoes",
+        link: "https://7a82163c306e-rottentomatoes.baby-beamup.club/configure",
+        icon: "addonicons/rotten.png",
+        category: "Catalogs",
+        configureUrl: "https://7a82163c306e-rottentomatoes.baby-beamup.club/configure",
+        description: "A catalog addon that provides access to Rotten Tomatoes' vast library of movie and TV show information.",
+        features: [
+            "Access to Rotten Tomatoes' vast library of movie and TV show information",
+           
         ],
         
     },
