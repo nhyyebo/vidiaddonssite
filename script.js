@@ -13,8 +13,8 @@ const addons = [
         name: "AIOStreams",
         configureUrl: "https://aiostreams.elfhosted.com/configure",
         icon: "addonicons/aios.png",
-        category: "Debrid Links, Feautured",
-        label: "Feautured",
+        category: "Debrid Links, Featured",
+        label: "Featured",
         link: "https://aiostreams.elfhosted.com/configure",
         
         description: "Source Wrapper for multiple debrid services",
