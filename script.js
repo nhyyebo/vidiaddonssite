@@ -122,11 +122,12 @@ const addons = [
     },
     {
         name: "The Movie Database Addon",
-        link: "https://422c10ef7d4f-tmdb.baby-beamup.club/manifest.json",
+        link: "https://94c8cb9f702d-tmdb-addon.baby-beamup.club/configure",
         icon: "addonicons/tmdb.jpeg",
         category: "Metadata",
         label: "Top pick",
         note: "Preferably for foreign languages",
+        configureUrl: "https://94c8cb9f702d-tmdb-addon.baby-beamup.club/configure",
         installUrl: "vidi://422c10ef7d4f-tmdb.baby-beamup.club/manifest.json",
         description: "A comprehensive metadata addon particularly excellent for foreign language content.",
         features: [
